@@ -16,7 +16,7 @@ extDir = tmpDir .. "/deps"
 testDir = rootDir .. "/test"
 
 --* Early exit if project generation not required.
-if _ACTION == nil or _ACTION == "clean" then
+if _ACTION == nil or _ACTION == "clean" or _ACTION == "deps" then
   return
 end
 
