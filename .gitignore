@@ -1,0 +1,5 @@
+#* Project compilation output folder.
+out
+
+#* IDE
+.vscode
