@@ -1,0 +1,59 @@
+name: Build and Test
+
+#* For a pull request, we use the PR title. After a push (probably to main), we use the commit title.
+run-name: ${{ github.actor }} - ${{ github.event.head_commit.message || github.event.pull_request.title }}
+
+#* To avoid duplicate jobs running when both push and PR is satisfied, we use this:
+#* https://github.com/orgs/community/discussions/26940#discussioncomment-5686753
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+#* Stop stale workflows when pull requests are updated: https://stackoverflow.com/a/70972844
+#* Does not apply to the main branch.
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable developer command prompt.
+        uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: x64
+          # https://github.com/actions/runner-images/issues/8891 ASAN issues.
+          toolset: 14.38
+      - name: Install Premake
+        run: .\tools\installPremake.ps1
+      - name: Build Project
+        run: .\tools\premakeWrapper.ps1 deps
+
+  linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Premake
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install premake
+      - name: Build Project
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          premake5 deps
+
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew update
+      - name: Install Premake
+        run: brew install premake
+      - name: Build project
+        run: premake5 deps

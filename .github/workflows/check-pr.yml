@@ -1,0 +1,21 @@
+name: Check PR title and body
+
+#* For a pull request, we use the PR title.
+run-name: ${{ github.actor }} - Check PR
+
+#* To avoid duplicate jobs running when both push and PR is satisfied, we use this:
+#* https://github.com/orgs/community/discussions/26940#discussioncomment-5686753
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  #* Check PR title if PR.
+  pr-title-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pass pull request title through script.
+        run: ./tools/prTitleCheck.py "${{ github.event.pull_request.title }}"
+      - name: Pass pull request body through script.
+        run: ./tools/prBodyCheck.py "${{ github.event.pull_request.body }}"
