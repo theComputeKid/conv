@@ -1,6 +1,6 @@
 doc:
   - changed-files:
-      - any-glob-to-any-file: ["doc/**", "README"]
+      - any-glob-to-any-file: ["doc/**", "README.md"]
 
 ci-cd:
   - changed-files:
