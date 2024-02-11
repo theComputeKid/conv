@@ -1,4 +1,4 @@
-name: Check PR title and body
+name: Check pull request title and body
 
 #* For a pull request, we use the PR title.
 run-name: ${{ github.actor }} - Check PR
@@ -11,7 +11,7 @@ on:
 
 jobs:
   #* Check PR title if PR.
-  pr-title-check:
+  prCheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

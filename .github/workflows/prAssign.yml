@@ -1,11 +1,11 @@
-name: Auto assign pull requests
+name: Assign pull requests
 run-name: ${{ github.actor }} - Assign PR
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
 jobs:
-  assign-pr:
+  prAssign:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
