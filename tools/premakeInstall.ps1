@@ -1,5 +1,7 @@
-$script:depsDir = "out\tmp\deps"
-$script:premakeDir = $depsDir + "\premake-core"
+# * Install a local copy of premake.
+
+$script:depsDir = Join-Path -Path "out" "tmp" "deps"
+$script:premakeDir = Join-Path -Path $depsDir -ChildPath "premake-core"
 
 if (Test-Path $premakeDir) {
   Remove-Item -Recurse -Force -path $premakeDir
@@ -13,7 +15,16 @@ $script:prevPwd = $PWD;
 Set-Location -ErrorAction Stop -LiteralPath $premakeDir
 
 try {
-  nmake.exe -nologo -f Bootstrap.mak windows
+  if ($IsWindows) {
+    nmake.exe -nologo -f Bootstrap.mak windows
+  }
+  elseif ($IsLinux) {
+    # * Requires uuid (e.g. sudo apt install uuid-dev)
+    make  -f Bootstrap.mak linux
+  }
+  elseif ($IsMacOS) {
+    make  -f Bootstrap.mak macosx
+  }
   $prevPwd | Set-Location
 }
 finally {
