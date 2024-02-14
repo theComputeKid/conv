@@ -13,6 +13,7 @@ testDir = rootDir .. "/test"
 benchDir = rootDir .. "/bench"
 toolsDir = rootDir .. "/tools"
 exampleDir = rootDir .. "/example"
+srcCommonDir = srcDir .. "/common"
 
 projectTools = require(toolsDir .. "/projectTools")
 
@@ -90,7 +91,7 @@ group "deps"
 
 function loadSourceProjectFile(folderName)
   print("Loading: " .. folderName)
-  dofile(folderName .. "/premake5.lua")
+  dofileopt(folderName .. "/premake5.lua")
 end
 
 srcProjectNames = {}

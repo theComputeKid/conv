@@ -58,11 +58,13 @@ project(myName)
   }
 
   files {
+    srcCommonDir .. "/**.cpp",
     mySrcDir .. "/**.cpp"
   }
 
   vpaths {
     ["Sources/*"] = mySrcDir .. "/**.cpp",
+    ["Common/*"] = srcCommonDir .. "/**.cpp",
     ["Headers/*"] = mySrcDir .. "/**.hpp"
   }
 
