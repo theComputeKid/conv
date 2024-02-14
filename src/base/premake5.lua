@@ -9,9 +9,14 @@ project(myName)
   clangTidy "On"
 
   defines { prjExportMacro }
-  files { mySrcDir .. "/**" }
+
+  files {
+    srcCommonDir .. "/**.cpp",
+    mySrcDir .. "/**.cpp"
+  }
 
   vpaths {
-    ["Sources/*"] = mySrcDir .. "/**.c*",
-    ["Headers/*"] = mySrcDir .. "/**.h*"
+    ["Sources/*"] = mySrcDir .. "/**.cpp",
+    ["Common/*"] = srcCommonDir .. "/**.cpp",
+    ["Headers/*"] = mySrcDir .. "/**.hpp"
   }
