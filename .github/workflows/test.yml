@@ -30,7 +30,7 @@ jobs:
       - name: Install Premake
         run: choco install premake5 --pre
       - name: Build Project
-        run: premake5 deps
+        run: premake5 all
 
   linux:
     runs-on: ubuntu-22.04
@@ -43,7 +43,7 @@ jobs:
       - name: Build Project
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          premake5 deps
+          premake5 all
 
   macos:
     runs-on: macos-14
@@ -53,4 +53,4 @@ jobs:
       - name: Install Premake
         run: brew install premake
       - name: Build project
-        run: premake5 deps
+        run: premake5 all

@@ -17,7 +17,7 @@ src:
 
 test:
   - changed-files:
-      - any-glob-to-any-file: "test/**"
+      - any-glob-to-any-file: ["test/**", "bench/**"]
 
 bench:
   - changed-files:
