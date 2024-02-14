@@ -83,7 +83,6 @@ workspace(prjName)
     runtime "Debug"
   filter {}
 
-  startproject(prjNamePrefix .. "test")
 -- ?-------------------- Load Projects ----------------------
 
 group "deps"
@@ -109,4 +108,7 @@ end
 if enableTests then
   group "test"
     table.foreachi(srcProjectNames, loadTestProjectFile)
+    workspace(prjName)
+      startproject(srcProjectNames[1] .. "-test")
+      print(srcProjectNames[1] .. "-test")
 end
