@@ -1,11 +1,11 @@
 local getArch = require "getHostArchitecture"
 local getParentFolderName = require "getParentFolderName"
 local getDependencies = require "getDependencies"
-
-require "setActions"
+local detectNvcc = require "detectNvcc"
 
 return {
   getHostArchitecture = getArch.getHostArchitecture,
   getParentFolderName = getParentFolderName.getParentFolderName,
-  getDependencies     = getDependencies.getDependencies
+  getDependencies     = getDependencies.getDependencies,
+  detectNvcc          = detectNvcc.detectNvcc
 }
